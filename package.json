@@ -1,6 +1,6 @@
 {
   "name": "nestjs-pino-logger",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A NestJS logger utilizing pino",
   "main": "dist",
   "types": "dist",
