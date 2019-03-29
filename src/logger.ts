@@ -1,21 +1,13 @@
-import { Injectable, LoggerService, Optional } from '@nestjs/common';
+import { LoggerService } from '@nestjs/common';
 import { isObject, isString, isNil } from '@nestjs/common/utils/shared.utils';
 import * as pino from 'pino';
+import { getMessage, getOptions } from './utils';
 
-const env = process.env.NODE_ENV;
-let hasPinoPretty = false;
-
-try {
-  require('pino-pretty');
-  hasPinoPretty = true;
-} catch {}
-
-@Injectable()
 export class Logger implements LoggerService {
   private options: pino.LoggerOptions;
   public logger: pino.Logger;
 
-  constructor(@Optional() nameOrOptions?: string | pino.LoggerOptions) {
+  constructor(nameOrOptions?: string | pino.LoggerOptions) {
     this.options = getOptions(nameOrOptions);
     this.logger = pino(this.options);
   }
@@ -60,17 +52,4 @@ export class Logger implements LoggerService {
       : pino({ ...this.options, name: context });
     logger[level](getMessage(message) as any, ...args);
   }
-}
-
-function getMessage(message: any) {
-  return isString(message) || isObject(message) ? message : String(message);
-}
-
-function getOptions(nameOrOptions?: string | pino.LoggerOptions) {
-  return {
-    name: isString(nameOrOptions) ? nameOrOptions : 'NestApplication',
-    level: env === 'development' ? 'trace' : env === 'test' ? 'silent' : 'info',
-    prettyPrint: env === 'development' && hasPinoPretty,
-    ...(isObject(nameOrOptions) ? nameOrOptions : {}),
-  };
 }
