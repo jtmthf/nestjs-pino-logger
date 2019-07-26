@@ -4,12 +4,15 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "declaration": true,
+    "declarationMap": true,
     "sourceMap": true,
     "importHelpers": true,
     "lib": ["es2017"],
     "outDir": "dist",
     "strict": true,
+    "incremental": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
-  }
+  },
+  "exclude": ["node_modules", "dist"]
 }

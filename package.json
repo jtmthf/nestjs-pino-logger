@@ -11,7 +11,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc"
+    "clean": "rimraf dist",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "jest",
+    "prepublishOnly": "yarn clean && yarn build"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.0.0",
@@ -19,21 +22,27 @@
     "pino": "^5.11.3"
   },
   "devDependencies": {
-    "@nestjs/common": "^6.0.4",
-    "@nestjs/core": "^6.0.4",
-    "@types/pino": "^5.8.6",
+    "@nestjs/common": "^6.5.3",
+    "@nestjs/core": "^6.5.3",
+    "@types/jest": "^24.0.15",
+    "@types/pino": "^5.8.8",
     "@types/pino-http": "^4.0.2",
-    "jest": "^24.5.0",
-    "pino": "^5.11.3",
-    "pino-http": "^4.1.0",
-    "pino-pretty": "^2.5.0",
-    "prettier": "^1.16.4",
+    "jest": "^24.8.0",
+    "pino": "^5.13.1",
+    "pino-http": "^4.2.0",
+    "pino-pretty": "^3.2.0",
+    "prettier": "^1.18.2",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^6.4.0",
-    "ts-jest": "^24.0.0",
-    "typescript": "^3.3.4000"
+    "rimraf": "^2.6.3",
+    "rxjs": "^6.5.2",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
   },
   "dependencies": {
-    "tslib": "^1.9.3"
+    "tslib": "^1.10.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
   }
 }

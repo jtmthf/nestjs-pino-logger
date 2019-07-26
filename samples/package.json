@@ -1,0 +1,7 @@
+{
+  "name": "samples",
+  "private": true,
+  "workspaces": [
+    "01-cats-app"
+  ]
+}

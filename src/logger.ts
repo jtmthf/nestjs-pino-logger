@@ -2,14 +2,16 @@ import { LoggerService } from '@nestjs/common';
 import { isObject, isString, isNil } from '@nestjs/common/utils/shared.utils';
 import * as pino from 'pino';
 import { getMessage, getOptions } from './utils';
+import { LogManager } from './log-manager';
 
 export class Logger implements LoggerService {
-  private options: pino.LoggerOptions;
-  public logger: pino.Logger;
+  private logManager: LogManager;
 
-  constructor(nameOrOptions?: string | pino.LoggerOptions) {
-    this.options = getOptions(nameOrOptions);
-    this.logger = pino(this.options);
+  constructor(nameOptionsOrManager?: string | pino.LoggerOptions | LogManager) {
+    this.logManager =
+      nameOptionsOrManager instanceof LogManager
+        ? nameOptionsOrManager
+        : new LogManager(getOptions(nameOptionsOrManager));
   }
 
   log(message: any, context?: string, ...args: any[]) {
@@ -47,9 +49,7 @@ export class Logger implements LoggerService {
     context?: string,
     ...args: any[]
   ) {
-    const logger = isNil(context)
-      ? this.logger
-      : pino({ ...this.options, name: context });
+    const logger = this.logManager.getLogger(context);
     logger[level](getMessage(message) as any, ...args);
   }
 }
