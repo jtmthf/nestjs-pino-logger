@@ -1,3 +1,5 @@
+export * from './decorators/log.decorator';
+
 export * from './interfaces';
 
 export * from './logger';

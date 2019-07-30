@@ -24,6 +24,7 @@
   "devDependencies": {
     "@nestjs/common": "^6.5.3",
     "@nestjs/core": "^6.5.3",
+    "@nestjs/testing": "^6.5.3",
     "@types/jest": "^24.0.15",
     "@types/pino": "^5.8.8",
     "@types/pino-http": "^4.0.2",
